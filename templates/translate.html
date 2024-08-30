@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translate Text</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% if detected_text %}
+        <p>{{ detected_text }}</p>
+        <select id="language-select">
+            <option value="english">English</option>
+            <option value="hindi">Hindi</option>
+            <option value="gujarati">Gujarati</option>
+            <option value="urdu">Urdu</option>
+            <option value="punjabi">Punjabi</option>
+        </select>
+        <button onclick="translateText()">Translate</button>
+        {% else %}
+        <p>No text detected in the image.</p>
+        <button onclick="window.location.href='/'">Back</button>
+        {% endif %}
+    </div>
+
+    <script>
+        function translateText() {
+            const language = document.getElementById('language-select').value;
+            fetch(`/translate?lang=${language}`).then(response => response.json())
+                .then(data => alert(`Translated Text: ${data.translated_text}`));
+        }
+    </script>
+</body>
+</html>

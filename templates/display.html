@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <img id="uploaded-image" src="{{ url_for('static', filename='images/image.png') }}" alt="Uploaded Image">
+        <div class="button-row">
+            <button onclick="window.location.href='/detect'">Detect the Text</button>
+            <button onclick="window.location.href='/'">Back</button>
+        </div>
+    </div>
+</body>
+</html>
