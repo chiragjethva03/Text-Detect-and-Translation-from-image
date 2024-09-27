@@ -4,15 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Display Image</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body{
+            background-color: #b5beb7;
+        }
+        .main{
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        button{
+            background-color: #be9595;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 20px;
+            margin: 1rem
+        }
+
+        .button-row{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <img id="uploaded-image" src="{{ url_for('static', filename='images/image.png') }}" alt="Uploaded Image">
-        <div class="button-row">
-            <button onclick="window.location.href='/detect'">Detect the Text</button>
-            <button onclick="window.location.href='/'">Back</button>
+    <div class="main">
+        <div class="container">
+            <img id="uploaded-image" src="{{ url_for('static', filename='images/image.png') }}" alt="Uploaded Image">
+            <div class="button-row">
+                <button onclick="window.location.href='/detect'">Detect the Text</button>
+                <button onclick="window.location.href='/'">Back</button>
+            </div>
         </div>
     </div>
+    
 </body>
 </html>

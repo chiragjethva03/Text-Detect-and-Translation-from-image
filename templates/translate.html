@@ -9,15 +9,27 @@
 <body>
     <div class="container">
         {% if detected_text %}
-        <p>{{ detected_text }}</p>
+        <p id="detected-text">{{ detected_text }}</p>
         <select id="language-select">
-            <option value="english">English</option>
-            <option value="hindi">Hindi</option>
-            <option value="gujarati">Gujarati</option>
-            <option value="urdu">Urdu</option>
-            <option value="punjabi">Punjabi</option>
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="gu">Gujarati</option>
+            <option value="ur">Urdu</option>
+            <option value="pa">Punjabi</option>
+            <option value="ta">Tamil</option>
+            <option value="te">Telugu</option>
+            <option value="kn">Kannada</option>
+            <option value="ml">Malayalam</option>
+            <option value="bn">Bengali</option>
+            <option value="mr">Marathi</option>
+            <option value="as">Assamese</option>
+            <option value="or">Odia</option>
+            <option value="ne">Nepali</option>
+            <option value="si">Sinhalese</option>
         </select>
-        <button onclick="translateText()">Translate</button>
+        <button class="detect" onclick="translateText()">Translate</button>
+        <button class="detect" onclick="window.location.href='/'">Finished</button>
+        <p id="translated-text"></p> <!-- Paragraph to display the translated text -->
         {% else %}
         <p>No text detected in the image.</p>
         <button onclick="window.location.href='/'">Back</button>
@@ -27,8 +39,16 @@
     <script>
         function translateText() {
             const language = document.getElementById('language-select').value;
-            fetch(`/translate?lang=${language}`).then(response => response.json())
-                .then(data => alert(`Translated Text: ${data.translated_text}`));
+            const detectedText = document.getElementById('detected-text').innerText; // Get detected text
+
+            fetch(`/translate?lang=${language}&detected_text=${encodeURIComponent(detectedText)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('translated-text').innerText = `Translated Text: ${data.translated_text}`; // Set translated text
+                })
+                .catch(error => {
+                    document.getElementById('translated-text').innerText = 'Translation failed. Please try again.';
+                });
         }
     </script>
 </body>

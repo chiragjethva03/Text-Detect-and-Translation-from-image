@@ -5,15 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Upload and Capture</title>
     <style>
+
+        body{
+            background-color: #b5beb7;
+        }
+        .main{
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
         #container {
             width: 300px;
             height: 300px;
-            border: 1px solid #ddd;
+            border: 1px solid #676767;
+            border-radius: 20px;
             margin: 20px auto;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+
         }
         #capture-container video, #image-container img {
             width: 100%;
@@ -22,19 +36,62 @@
         button {
             margin: 10px;
         }
+        .flashes {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        .flashes li {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid transparent;
+        }
+        .flashes .error {
+            color: white;
+            background-color: #be9595;
+        }
+        .flashes .success {
+            color: white;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        button{
+            background-color: #be9595;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
     </style>
 </head>
 <body>
-    <div id="container">
-        <!-- Placeholder for uploaded or captured image -->
-        <div id="image-container"></div>
+    <div style="text-align: center;"></div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
     </div>
-    <div style="text-align: center;">
-        <input type="file" id="choose-file" accept="image/*" style="display: none;">
-        <button onclick="document.getElementById('choose-file').click();">Choose File</button>
-        <button onclick="startCapture()">Capture</button>
-        <button onclick="deleteImage()">Delete</button>
+    <div class="main">
+        <div id="container">
+            <div id="image-container"></div>
+        </div>
+    
+        <div style="text-align: center;">
+            <input type="file" id="choose-file" accept="image/*" style="display: none;">
+            <button onclick="document.getElementById('choose-file').click();">Choose File</button>
+            <button onclick="startCapture()">Capture</button>
+        </div>
+    
     </div>
+
+    
 
     <script>
         // Handle the 'Choose File' upload
@@ -49,16 +106,6 @@
         // Start camera capture
         function startCapture() {
             window.location.href = '/capture';
-        }
-
-        // Delete the image
-        function deleteImage() {
-            fetch('/delete', { method: 'POST' })
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('image-container').innerHTML = "";
-                    alert(data);
-                });
         }
     </script>
 </body>

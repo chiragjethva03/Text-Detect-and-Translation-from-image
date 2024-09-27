@@ -3,10 +3,42 @@
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    border-radius: 20px;
 }
 
 .image-container img {
     max-width: 100%;
     height: auto;
     margin-bottom: 20px;
+}
+
+#video{
+    border-radius: 20px;
+}
+
+body {
+    background-color: #b5beb7;
+}
+
+.main {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.detect{
+    margin: 0;
+}
+
+button{
+    margin: 1rem;
+    background-color: #be9595;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 20px;
 }
